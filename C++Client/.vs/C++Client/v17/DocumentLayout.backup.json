@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\u5668842\\Desktop\\Games Engineering\\C\u002B\u002BClient\\",
+  "WorkspaceRootPath": "C:\\Users\\achua\\Desktop\\GE\\BundleChatroom\\ChatRoom\\C\u002B\u002BClient\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D6F9E434-C107-4EEA-B000-F0FF70B66CA4}|C\u002B\u002BClient\\C\u002B\u002BClient.vcxproj|C:\\Users\\u5668842\\Desktop\\Games Engineering\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D6F9E434-C107-4EEA-B000-F0FF70B66CA4}|C\u002B\u002BClient\\C\u002B\u002BClient.vcxproj|C:\\Users\\achua\\Desktop\\GE\\BundleChatroom\\ChatRoom\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D6F9E434-C107-4EEA-B000-F0FF70B66CA4}|C\u002B\u002BClient\\C\u002B\u002BClient.vcxproj|solutionrelative:C\u002B\u002BClient\\WinSockReverseClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -14,25 +14,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "WinSockReverseClient.cpp",
-              "DocumentMoniker": "C:\\Users\\u5668842\\Desktop\\Games Engineering\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp",
+              "DocumentMoniker": "C:\\Users\\achua\\Desktop\\GE\\BundleChatroom\\ChatRoom\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp",
               "RelativeDocumentMoniker": "C\u002B\u002BClient\\WinSockReverseClient.cpp",
-              "ToolTip": "C:\\Users\\u5668842\\Desktop\\Games Engineering\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp",
+              "ToolTip": "C:\\Users\\achua\\Desktop\\GE\\BundleChatroom\\ChatRoom\\C\u002B\u002BClient\\C\u002B\u002BClient\\WinSockReverseClient.cpp",
               "RelativeToolTip": "C\u002B\u002BClient\\WinSockReverseClient.cpp",
-              "ViewState": "AgIAAEYAAAAAAAAAAADwv1YAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-23T11:58:20.28Z",
               "EditorCaption": ""

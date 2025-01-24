@@ -8,6 +8,36 @@
 
 #define DEFAULT_BUFFER_SIZE 1024
 
+std::string buildProtocolMessage(const std::string& userInput) {
+    // b:Hello everyone   -> [BROADCAST]Hello everyone
+    // d:Bob:Hi Bob!      -> [DM:Bob]Hi Bob!
+
+    if (userInput.size() < 2) {
+        return userInput; 
+    }
+
+    // If the message start with "b:"
+    if (userInput.rfind("b:", 0) == 0) {
+        // remove "b:"
+        std::string content = userInput.substr(2);
+        return "[BROADCAST]" + content;
+    }
+
+    // If the message start with "d:username:"
+    if (userInput.rfind("d:", 0) == 0) {
+        // find second ":"
+        size_t pos = userInput.find(':', 2);
+        if (pos != std::string::npos) {
+            // remove "d:username:"
+            std::string toUser = userInput.substr(2, pos - 2);
+            std::string content = userInput.substr(pos + 1);
+            return "[DM:" + toUser + "]" + content;
+        }
+    }
+
+    return userInput;
+}
+
 //void run_client(const char* host, unsigned int port, const std::string& sentence) {
 void run_client() {
     const char* host = "127.0.0.1"; // Server IP address
@@ -50,36 +80,50 @@ void run_client() {
     }
 
     std::cout << "Connected to the server." << std::endl;
-     
-    while (true)
-    {
-        std::cout << "Send to server:";
-        std::getline(std::cin, sentence);
 
-        // Send the sentence to the server
-        if (send(client_socket, sentence.c_str(), static_cast<int>(sentence.size()), 0) == SOCKET_ERROR) {
-            std::cerr << "Send failed with error: " << WSAGetLastError() << std::endl;
-            closesocket(client_socket);
-            WSACleanup();
-            return;
+    //Enter user name and send to server
+    std::string myName;
+    std::cout << "Enter your username: ";
+    std::getline(std::cin, myName);
+    if (myName.empty()) {
+        myName = "Guest";
+    }
+
+    //  e.g. "[NAME]Alice"
+    std::string nameMsg = "[NAME]" + myName;
+    send(client_socket, nameMsg.c_str(), static_cast<int>(nameMsg.size()), 0);
+     
+    while (true) {
+        std::cout << "Enter message (b:xxx for broadcast, d:User:xxx for DM, bye to exit): ";
+        std::string userInput;
+        std::getline(std::cin, userInput);
+
+        if (userInput == "bye") {
+            // tell server the client is leaving
+            send(client_socket, userInput.c_str(), static_cast<int>(userInput.size()), 0);
+            break;
         }
 
-        if (sentence == "bye") break;
+        std::string finalMsg = buildProtocolMessage(userInput);
 
-        std::cout << "Sent: " << sentence << std::endl;
+        if (send(client_socket, finalMsg.c_str(), static_cast<int>(finalMsg.size()), 0) == SOCKET_ERROR) {
+            std::cerr << "Send failed.\n";
+            break;
+        }
 
-        // Receive the reversed sentence from the server
+        // 等待服务器的返回（若服务器要回显/转发给自己）
+        // 也可用一个单独的线程持续 recv，以便实时显示消息
+        // 目前为了简单，先阻塞性地 recv 一次，也可以不做
         char buffer[DEFAULT_BUFFER_SIZE] = { 0 };
         int bytes_received = recv(client_socket, buffer, DEFAULT_BUFFER_SIZE - 1, 0);
         if (bytes_received > 0) {
-            buffer[bytes_received] = '\0'; // Null-terminate the received data
-            std::cout << "Received from server: " << buffer << std::endl;
+            buffer[bytes_received] = '\0';
+            std::cout << "Server says: " << buffer << std::endl;
         }
-        else if (bytes_received == 0) {
-            std::cout << "Connection closed by server." << std::endl;
-        }
-        else {
-            std::cerr << "Receive failed with error: " << WSAGetLastError() << std::endl;
+        // 如果 bytes_received == 0 或负数，说明服务器断开/出错，这里就可以 break
+        else if (bytes_received <= 0) {
+            std::cout << "Server closed or error.\n";
+            break;
         }
     }
 
